@@ -6,7 +6,7 @@ iOS 编码流程和使用方法
 注册编码器
 av_register_all();
 
-#第二步：
+第二步：
 
 初始化输入码流参数AVFormatContext，它包含的码流参数比较多，主要含有一下部分：
 struct AVInputFormat *iformat：输入数据的封装格式
