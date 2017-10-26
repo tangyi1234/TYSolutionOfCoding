@@ -6,7 +6,7 @@ iOS 编码流程和使用方法
 注册编码器
 av_register_all();
 
-第二步：
+#第二步：
 
 初始化输入码流参数AVFormatContext，它包含的码流参数比较多，主要含有一下部分：
 struct AVInputFormat *iformat：输入数据的封装格式
@@ -20,7 +20,8 @@ AVDictionary *metadata：元数据
 
 初始方法
 pFormatConttext = avformat_alloc_context();
-第三步：
+
+#第三步：
 
 初始化AVStream，AVStream是存储每一个视频/音频流信息的结构体，它所带参数有以下部分：
 int index：标识该视频/音频流
@@ -33,7 +34,7 @@ AVPacket attached_pic：附带的图片。比如说一些MP3，AAC音频文件�
 
 初始方法：
 stream = avformat_new_stream(pFormatConttext, 0);
-第四步：
+#第四步：
 
 初始化AVCodecContext，AVCodecContext是一个编码信息设置体，编码效果如何都是取决与对它的参数设置。
 
@@ -84,7 +85,7 @@ videoCodingContext->keyint_min = 25;
 
 videoCodingContext->scenechange_threshold = 40;
 videoCodingContext->rc_strategy = 2;//码率控制测率，宏定义，查API
-第五步
+#第五步
 
 初始化AVCodec，AVCodec是存储编解码器信息的结构体，其主要包含参数
 const char *name：编解码器的名字，比较短
@@ -107,7 +108,7 @@ if (avcodec_open2(videoCodingContext, codec, &param) < 0) {
 NSLog(@"编码器初始化失败");
 return NO;
 }
-第六步
+#第六步
 
 AVFrame, AVFrame是包含码流参数较多的结构体，AVFrame就是用来保存帧数据的。应为我们编码出的数据是以流的形式存在的所以我们有个流体。如果要做图像识别这里能起到帮助的作用。
 uint8_t *data[AV_NUM_DATA_POINTERS]：解码后原始数据（对视频来说是YUV，RGB，对音频来说是PCM）
@@ -133,7 +134,7 @@ uint8_t motion_subsample_log2：一个宏块中的运动矢量采样个数，取
 初始化
 codingFrame = av_frame_alloc();
 
-第七步
+#第七步
 
 这里一块主要做的设置我们保存区域有多大。avpicture_fill来把帧和我们新申请的内存来结合，这个函数的使用本质上是为已经分配的空间的结构体AVPicture挂上一段用于保存数据的空间，这个结构体中有一个指针数组data[4]，挂在这个数组里。
 
@@ -147,7 +148,7 @@ av_new_packet(&pkt, picture_size);
 
 以上的步骤都是一个编码流程初始化，以下的步骤才是开始编码。
 
-第八步 编码
+#第八步 编码
 
 这一块主要是将摄像头获取的数据装换为YUV数据。我这里通过摄像头获取的格式为kCVPixelFormatType_420YpCbCr8BiPlanarFullRange，所以下面是我们对上面格式进行的yuv编码。
 
